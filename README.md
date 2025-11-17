@@ -73,7 +73,7 @@ The project uses gene expression data in TSV format with the following structure
 ### 5. Autoencoder + XGBoost
 - Autoencoder for dimensionality reduction and faster XGBoost fit
 - XGBoost trained on latent representations
-- Latent features compress gene expression into abstract representations that are able to reveal disease-specific patterns and insights
+- Latent features make the differences between Healthy, RA and SLE easier for the model to see, because they filter out noise and keep only the gene-expression patterns that matter.
 
 ## Key Features
 
