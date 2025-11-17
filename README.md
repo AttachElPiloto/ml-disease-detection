@@ -5,11 +5,9 @@ A machine learning pipeline for disease classification using gene expression sam
 ## Project Overview
 
 This project analyzes gene expression data to classify patients into disease categories:
-- **Healthy** (control group)
+- **Healthy**
 - **RA** (Rheumatoid Arthritis)
 - **SLE** (Systemic Lupus Erythematosus)
-
-The pipeline includes data preprocessing, feature engineering, model training, and comprehensive analysis with visualizations.
 
 ## Project Structure
 
@@ -34,30 +32,30 @@ The pipeline includes data preprocessing, feature engineering, model training, a
 ├── saved_pipeline/            # Pre-trained models and pipelines
 │   ├── ae.pt                  # Autoencoder weights (PyTorch)
 │   └── xgb.json               # XGBoost model
-└── notebook/                  # Jupyter notebooks for exploration
+└── notebook/                  # Jupyter notebook
     └── notebook.ipynb
 ```
 
 ## Data
 
 The project uses gene expression data in TSV format with the following structure:
-- **Input**: Gene expression profiles (rows = genes, columns = samples)
+- **Input**: Gene expression (rows = genes, columns = samples)
 - **Labels**: Disease classification (Healthy, RA, SLE)
 
 ### Training Data
-- `healthy_train_data.tsv` - Healthy control samples
+- `healthy_train_data.tsv` - Healthy samples
 - `ra_train_data.tsv` - Rheumatoid Arthritis patient samples
 - `sle_train_data.tsv` - Systemic Lupus Erythematosus patient samples
 
 ### Test Data
-- `healthy_test_data.tsv` - Healthy control test samples
+- `healthy_test_data.tsv` - Healthy test samples
 - `ra_test_data.tsv` - RA test samples
 - `sle_test_data.tsv` - SLE test samples
 
 ## Models
 
 ### 1. Decision Tree Baseline
-- Full-depth decision tree with ID3
+- Decision tree with ID3
 - Serves as an interpretable baseline model
 
 ### 2. Decision Tree Regularized
@@ -73,22 +71,22 @@ The project uses gene expression data in TSV format with the following structure
 - Addresses class imbalances and difficulty to detect SLE samples correctly.
 
 ### 5. Autoencoder + XGBoost
-- Autoencoder for dimensionality reduction and faster XGBoost fit.
+- Autoencoder for dimensionality reduction and faster XGBoost fit
 - XGBoost trained on latent representations
-- Combines representation learning with classification
+- Latent features compress gene expression into abstract representations that are able to reveal disease-specific patterns and insights
 
 ## Key Features
 
 - **Preprocessing**: Log transformation, feature variance filtering, normalization
-- **Feature Analysis**: Gene variance analysis, importance ranking
+- **Feature Analysis**: Gene variance analysis, importance ranking 
 - **Model Evaluation**: F-beta scores, confusion matrices
-- **Visualization**: Gene distributions, importance plots, model comparisons
-- **Pipeline Serialization**: Save/load trained models and preprocessing pipelines
+- **Visualization**: Most important genes analysis, thresholds definition, and model performance comparisons
+- **Pipeline Saving**: Save/load trained models and preprocessing pipelines
 
 ## Usage
 
 ### Run the Complete Pipeline
-You need to uncomment #analysis()
+You need to uncomment #analysis() and run 
 ```python
 python main.py
 ```
@@ -110,7 +108,7 @@ import pandas as pd
 patient_data = pd.Series({...})  # gene_name -> expression_value
 
 # Get prediction
-prediction, confidence = evaluate_model(patient_data)
+pred_label, proba, classes = evaluate_model(patient_data)
 ```
 ## Requirements
 
